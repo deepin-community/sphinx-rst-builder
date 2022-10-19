@@ -1,0 +1,8 @@
+Document: python3-sphinx-rst-builder
+Title: Sphinx RST Builder Documentation
+Author: David Fritzsche and contributors
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python3-sphinx-rst-builder/html/readme/genindex.html
+Files: /usr/share/doc/python3-sphinx-rst-builder/html/*/*.html

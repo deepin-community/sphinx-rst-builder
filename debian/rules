@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+export PYBUILD_NAME=sphinx-rst-builder
+
+%:
+	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
+
+override_dh_auto_build:
+	# The documentation is splitted in 3 directories, it's a bit PITA to merge.
+	for directory in changelog examples readme; do \
+		PYTHONPATH=src python3 -m sphinx -b html -d docs/.build/.doctrees -N docs/$$directory docs/.build/html/$$directory; \
+	done
+	mkdir -p docs/.build/html/_upstream/_sources
+	cp -a docs/.build/html/changelog/_static docs/.build/html/_upstream
+	for directory in changelog examples readme; do \
+		mv docs/.build/html/$$directory/_sources/* docs/.build/html/_upstream/_sources; \
+		rmdir docs/.build/html/$$directory/_sources; \
+		rm -rf docs/.build/html/$$directory/_static; \
+		ln -sf ../_upstream/_static docs/.build/html/$$directory/_static; \
+		ln -sf ../_upstream/_sources docs/.build/html/$$directory/_sources; \
+	done
+	dh_auto_build
