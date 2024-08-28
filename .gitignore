@@ -1,1 +1,13 @@
-.pc/
+*.egg-info
+*.pyc
+*.whl
+*~
+.doctrees
+.envrc
+.hypothesis
+.mypy_cache
+.tox
+.venv
+__pychache__
+build/
+dist/
